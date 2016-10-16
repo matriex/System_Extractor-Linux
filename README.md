@@ -19,3 +19,5 @@ Released scripts
 -----------------
 
 * SCRIPT : NOT YET DEPLOYED
+
+![Sony Xperia M](http://wiki.cyanogenmod.org/images/a/a5/Nicki.png "Sony Xperia M in black")
