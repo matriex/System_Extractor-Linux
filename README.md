@@ -20,4 +20,4 @@ Released scripts
 
 * SCRIPT : NOT YET DEPLOYED
 
-![Sony Xperia M](http://wiki.cyanogenmod.org/images/a/a5/Nicki.png "Sony Xperia M in black")
+![Extractor Linux/Cygwin](https://github.com/matriex/System_Extractor-Linux/blob/master/EXTRACTOR.PNG.png "EXTRACTOR")
