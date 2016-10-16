@@ -139,71 +139,90 @@ E_DAT() {
 	  read -p ""
 	  EXT_MAIN	  
      fi
-	 
-	if [ -f "extract/system.new.dat" ]
+   #Script testen on UBUNTU
+   #Modified on: 10/16/2016
+	if [ -f "extract/system.new.dat" ]  #IF-4
 	  then
-	    if [ -f "extract/system.transfer.list" ]
+           read
+	    if [ -f "extract/system.transfer.list" ] #IF-3
 	     then
-	       echo
+	      read 
+              echo
 	      echo  "Found system.new.dat & system.transfer.list"
 	      echo
 	      sleep 0.5
 	      echo  "converting system.new.dat to system.img(ext4 format) "
-          cp tools/UN_AF/sdat2img.py extract
-	      cd extract
-	      python sdat2img.py system.transfer.list system.new.dat system.img
-	      cd ..
-	        if [ -f "extract/system.img" ]
-	         then
-		      cd extract
-		      rm -f system.new.dat
-			  rm -f system.transfer.list
-              rm -f sdat2img.py			
-              cd ..            
-			   if [ `uname | grep Linux` ]
+            cp tools/UN_AF/sdat2img.py extract
+             read
+	     cd extract
+	     python sdat2img.py system.transfer.list system.new.dat system.img
+	     echo
+             cd ..
+	  if [ -f "extract/system.img" ]    #IF-2
+	      then
+               cd extract
+               rm -f system.new.dat
+	       rm -f system.transfer.list
+               rm -f sdat2img.py			
+               cd ..            
+	       echo "  Successfully Converted into System.img"
+               sleep 1
+            
+           if [ `uname | grep Linux` ]  #IF-1
+            then
+	          cd extract
+                  echo
+                  cecho W "" "  Mounting system.img to output folder"
+                  echo					   
+	          echo  "  Trying to mount if possible"
+	          echo
+	          read -p "  Hit Enter to continue to try mount"
+	          echo
+                    if [ ! -e output ]
                      then
-					   cd extract
-                       echo
-                       cecho W "" "  Mounting system.img to output folder"
-                       echo					   
-					   echo  "  Linux users mount of system.img will or will not work"
-				       echo
-				       read -p "  Hit Enter to continue to try mount"
-					   echo
-				   	   sudo mount -t ext4 -o loop system.img output/
-					   echo
-					   echo  "   IF MOUNTED then DONE else sorry, please find another"
-					   echo
-					   echo  "   Method for mounting system.img, IN LINUX ANYTHING IS POSSIBLE"
-					   echo
-				       read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
-					   cd ..
-					   EXT_MAIN
-			
-                     elif [ `uname | grep CYGWIN` ]
-                       then 
-				        cp tools/Cygwin/ImgExtractor.exe extract
-				        cd extract
-						echo
-						cecho W "" "   Converting system.img to system_ folder"
-						sleep 1
+                     mkdir output
+                    fi
+                  #IN Ubuntu mount worked but in other platform
+                  #it will or will not work
+	          sudo mount -t ext4 -o loop system.img output/
+	           if [ "$?" == "0" ]
+                    then
+                    echo
+	            echo  "   DONE! Mounted system.img in output folder"
+	            echo
+	            read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+		   else
+                    echo
+                    echo   "    Mount Failed Please try another method!"
+                    echo 
+                    read -p ""
+                   fi
+                   cd ..
+		   EXT_MAIN
+	 elif [ `uname | grep CYGWIN` ]
+            then 
+                   cp tools/Cygwin/ImgExtractor.exe extract
+		   cd extract
+	 	   echo
+		   cecho W "" "   Converting system.img to system_ folder"
+		   sleep 1
                         ./ImgExtractor.exe system.img -i
 				        if [ -e system_ ]
 				         then 
 				          rm -f ImgExtractor.exe
-					      echo  
+					  echo  
 				          echo  "   Extracted system.img to system_ folder"
-					      echo
-                          read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
-						  echo
-						  echo
+					  echo
+                                          read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+				          echo
+				          echo
 				          cd ..
-					      EXT_MAIN				   
-                        fi
-			    fi
-	        fi
-	    fi  
-	fi   
+					 EXT_MAIN				   
+                                       fi
+                  fi  #FI-1
+	       fi  #FI-2
+	    fi  #FI-3 
+	 fi  #FI-4    
 	
 }
 
@@ -218,34 +237,21 @@ UN_MNT() {
 	read -p "  Hit enter to continue"
    if [ -e "extract/output" ]
     then
-	 clear
+     clear
      cd extract
      echo "  Trying to Unmount system.img IF MOUNTED in output folder"
      echo
-	 read -p "  Hit enter to try "
-	 echo
+     read -p "  Hit enter to try "
+     echo
      sudo umount output/
      echo
      echo  "    DONE    "
      echo 
-	 read enter
+     read enter
      cd ..
-	 EXT_MAIN
-     elif [ -e output ]
-      then 
-	  echo "  Trying to Unmount system.img IF MOUNTED in output folder"
-      echo
-	  read -p "Hit enter to try "
-	  echo
-      sudo umount output/
-      echo
-      echo  "    DONE    "
-      echo
-	  read enter
-	  EXT_MAIN
+     EXT_MAIN
    fi
- }
-	
+ }	
 
 R_DAT() {
 
