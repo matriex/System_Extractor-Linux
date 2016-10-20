@@ -18,12 +18,13 @@ _>Find yourself
 Released scripts
 -----------------
 
-* SCRIPT : NOT YET DEPLOYED
+* SCRIPT : DEPLOYED / ON DEVLOPMENT
 
 ![Extractor Linux/Cygwin](https://github.com/matriex/System_Extractor-Linux/blob/master/EXTRACTOR.PNG.png "EXTRACTOR")
 
 INFO
------------=
+------
+
 1) Extract_DAT         #DONE
 
 2) Repack-dat  --not yet done
@@ -34,3 +35,7 @@ INFO
 
 5) UNMONT              #DONE
 	
+DOWNLOAD
+---------
+
+https://github.com/matriex/System_Extractor-Linux/archive/master.zip
