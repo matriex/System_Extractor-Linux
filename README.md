@@ -21,3 +21,10 @@ Released scripts
 * SCRIPT : NOT YET DEPLOYED
 
 ![Extractor Linux/Cygwin](https://github.com/matriex/System_Extractor-Linux/blob/master/EXTRACTOR.PNG.png "EXTRACTOR")
+
+1) Extract_DAT ;;      #DONE
+2) Repack-dat  --not yet done
+3) IMAGE FILE  --not yet done
+4) SIGN-ZIP            #DONE
+5) UNMONT              #DONE
+	
