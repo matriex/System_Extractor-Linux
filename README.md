@@ -1,6 +1,5 @@
 # System_Extractor [Linux/Cygwin]
 
-# DEVLOPMENT CLOSED RESUME AFTER NEXT YEAR, MARCH
 # CONTRIBUTE IF POSSIBLE
 
 Extractor for linux , ON GOING DEVELOPMENT
