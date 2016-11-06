@@ -29,9 +29,9 @@ INFO
 
 1) Extract_DAT         #DONE
 
-2) Repack-dat  --not yet done
+2) Repack-dat  --not yet done    ----NOT WORK REMOVED
 
-3) IMAGE FILE  --not yet done
+3) IMAGE FILE  --not yet done  ---NOT NEEDED
 
 4) SIGN-ZIP            #DONE
 
