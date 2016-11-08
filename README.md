@@ -8,7 +8,7 @@ Extractor for linux , ON GOING DEVELOPMENT
 
  1. Install **Python 2.7.x** 
     
- **Please DO NOT UPDATE TO LATEST  3.x, for supporting sdat2img and simg2dat python 2.7.x(last version of 2.x is required)
+ **Please DO NOT UPDATE TO LATEST  3.x, for supporting sdat2img and simg2dat python 2.7.x(last version of 2.x is required)**
  
  2. Install Java Development kit or JAVA SDK for ZIP signing (Not necessary, If you don't want ZIP sign)
 
