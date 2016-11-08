@@ -1,11 +1,14 @@
 # System_Extractor [Linux/Cygwin]
 
-# CONTRIBUTE IF POSSIBLE
+## CONTRIBUTE IF POSSIBLE
+
+# ISSUE - Repack-dat
+The binary img2sdat does not works with linux-ubuntu (which i use , don't know about others) , therefore 
 
 Extractor for linux , ON GOING DEVELOPMENT
 
 
-Requirments
+## Requirments
 ------------
 
 Python 3.x must be installed
@@ -17,14 +20,14 @@ Java Development kit or JAVA SDK must be installed for ZIP signing
 _>Find yourself
 
 
-Released scripts
+## Released scripts
 -----------------
 
 * SCRIPT : DEPLOYED / ON DEVLOPMENT
 
 ![Extractor Linux/Cygwin](https://github.com/matriex/System_Extractor-Linux/blob/master/EXTRACTOR.PNG.png "EXTRACTOR")
 
-INFO
+## INFO
 ------
 
 1) Extract_DAT         #DONE
@@ -37,7 +40,7 @@ INFO
 
 5) UNMONT              #DONE
 	
-DOWNLOAD
+## DOWNLOAD
 ---------
 
 https://github.com/matriex/System_Extractor-Linux/archive/master.zip
