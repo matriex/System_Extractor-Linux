@@ -6,16 +6,16 @@ Extractor for linux , ON GOING DEVELOPMENT
 
 ## ISSUE - Repack-dat
 
-**The binary _img2sdat_ does not works with linux-ubuntu (the OS which i use , don't know about other OS) , therefore repack will not be included in extractor, If someone found binary which works report it to this [POST](http://forum.xda-developers.com/android/help/extract-dat-marshmallow-lollipop-easily-t3334117)**
+**The binary _img2sdat_ does not works with linux-ubuntu (the OS which i use , don't know about other OS) , therefore repack will not be included in extractor, If someone found binary which works report it to this** [POST](http://forum.xda-developers.com/android/help/extract-dat-marshmallow-lollipop-easily-t3334117)
 
 
 ## Requirments & Installation
 
  1. Install **_Python 3.x_**
  
- 2. Install Java Development kit or JAVA SDK for ZIP signing
+ 2. Install Java Development kit or JAVA SDK for ZIP signing (Not necessary, If you don't want ZIP sign)
 
-_Install above all for better compatibility of script with OS_
+_Install above all packages with sudo apt install **Search google**_
 
 
 ## Released scripts
@@ -24,17 +24,17 @@ _Install above all for better compatibility of script with OS_
 
 ![Extractor Linux/Cygwin](https://github.com/matriex/System_Extractor-Linux/blob/master/EXTRACTOR.PNG.png "EXTRACTOR")
 
-## INFO
+## Usage
 
-1) Extract_DAT         #DONE
+1. Extract DAT         
 
-2) Repack-dat  --not yet done    ----NOT WORK REMOVED
+2. Repack-dat  - not yet done   --**ISSUE**
 
-3) IMAGE FILE  --not yet done  ---NOT NEEDED
+3. IMAGE FILE  - not yet done  --**NOT NEEDED**
 
-4) SIGN-ZIP            #DONE
+4. SIGN-ZIP            
 
-5) UNMONT              #DONE
+5. UNMONT              
 	
 ## DOWNLOAD
 
