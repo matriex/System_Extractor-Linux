@@ -15,7 +15,7 @@ Extractor for linux , ON GOING DEVELOPMENT
  
  2. Install Java Development kit or JAVA SDK for ZIP signing (Not necessary, If you don't want ZIP sign)
 
-_Install above all packages with sudo apt install **Search google**_
+  Install above all packages with sudo apt install **Search google**
 
 
 ## Released scripts
