@@ -4,14 +4,11 @@
 
 Extractor for linux , ON GOING DEVELOPMENT
 
-## ISSUE - Repack-dat
-
-**The binary _img2sdat_ does not works with linux-ubuntu (the OS which i use , don't know about other OS) , therefore repack will not be included in extractor, If someone found binary which works report it to this** [POST](http://forum.xda-developers.com/android/help/extract-dat-marshmallow-lollipop-easily-t3334117)
-
-
 ## Requirments & Installation
 
- 1. Install **_Python 3.x_**
+ 1. Install **Python 2.7.x** 
+    
+ **Please DO NOT UPDATE TO LATEST  3.x, for supporting sdat2img and simg2dat python 2.7.x(last version of 2.x is required)
  
  2. Install Java Development kit or JAVA SDK for ZIP signing (Not necessary, If you don't want ZIP sign)
 
