@@ -2,7 +2,7 @@
 #
 #/*  Build date : WED,OCT-12,2016
 # *  Modified   : THU , 20 OCT 2016
-# *  author     : matrix , dxdia 
+# *  author     : matrix , dxdia
 # *  DONT'T MESS WITH THE SCRIPTS UNLESS YOU DON'T KNOW
 # *  WHAT YOU ARE DOING!
 # *  /
@@ -13,20 +13,20 @@ if [ ! -e tools ]
   then
     clear
 	echo
-    echo "     Folder 'tools' not found , the extractor won't  " 
+    echo "     Folder 'tools' not found , the extractor won't  "
     echo "     work , unless you place it in right place       "
 	exit 0
   fi
- 
+
 if [ ! -e ext ]
   then
     clear
 	echo
-    echo "     Don't modify or reaname script ext , it is associated  " 
+    echo "     Don't modify or reaname script ext , it is associated  "
     echo "     with all functions/folders , so just do ./ext don't REN"
 	exit 0
 fi
-  
+
 #Check for python - installed OR NOT
 #PYTHON IS REQUIRED FOR DAT, SO ITS A MAJOR ISSUE IF NOT PYTHON
 CHK=`python --version 2>/dev/null`
@@ -38,7 +38,7 @@ CHK=`python --version 2>/dev/null`
      cecho R "      Programe " "Python" " is not installed , please install python"
 	 echo
      echo "      otherwise extractor will not work properly                 "
-	 echo 
+	 echo
 	 echo "      TRY : apt-get install python or your friend GOOGLE"
 	 echo
      echo
@@ -63,38 +63,38 @@ CHK=`java -version 2>/dev/null`
 		 EXT_MAIN
 	    else
          exit 1
-       fi	   
+       fi
   fi
 
 
 
-} 
+}
 
 #COLOR
 #USAGE: cecho TYPE=R|G|Y|B|P|C|W "msg1" "color_msg2" "msg3"
 cecho ()
-   { 
-   #Case didn't work out for me in cygwin 
+   {
+   #Case didn't work out for me in cygwin
    if [ "$1" == "R" ]
 then
   echo -e "$2""\033[0;91m$3\033[0m""$4" # Red
 elif  [ "$1" == "G" ]
-then 
+then
   echo -e "$2""\033[0;92m$3\033[0m""$4" # Green
 elif  [ "$1" == "Y" ]
-then 
-  echo -e "$2""\033[0;93m$3\033[0m""$4" # Yellow 
+then
+  echo -e "$2""\033[0;93m$3\033[0m""$4" # Yellow
 elif  [ "$1" == "B" ]
-then 
+then
   echo -e "$2""\033[0;94m$3\033[0m""$4" # Blue
 elif  [ "$1" == "P" ]
-then 
+then
   echo -e "$2""\033[0;95m$3\033[0m""$4" # Purple
 elif  [ "$1" == "C" ]
-then 
+then
   echo -e "$2""\033[0;96m$3\033[0m""$4" # Cyan
 elif  [ "$1" == "W" ]
-then 
+then
   echo -e "$2""\033[0;97m$3\033[0m""$4" # White
  fi
 }
@@ -111,7 +111,7 @@ E_DAT() {
 
    unset DATE_STR
    DATE_STR=`date '+%m-%d-%a_%H-%M-%S'`
-   #For not conflicting with previous extracted files 
+   #For not conflicting with previous extracted files
    #Based on dxdia's kitchen
    extract=extract_$DATE_STR
    mkdir $extract
@@ -121,7 +121,7 @@ E_DAT() {
    echo   "::                                                  ::"
    echo -e  "::  Copy " "\033[0;92msystem.new.dat\033[0m"" , ""\033[0;92msystem.transfer.list\033[0m""     ::"
    echo   "::                                                  ::"
-   echo -e  "::" " to ""\033[0;97m$extract\033[0m"" folder.           ::" 
+   echo -e  "::" " to ""\033[0;97m$extract\033[0m"" folder.           ::"
    echo   "::                                                  ::"
    echo   "::::::::::::::::::::::::::::::::::::::::::::::::::::::"
    echo
@@ -138,7 +138,7 @@ E_DAT() {
 	  echo    " placing system.new.dat in mentioned folder "
 	  rm -rf $extract
 	  WAIT " "
-	  EXT_MAIN	  
+	  EXT_MAIN
      fi
 	 if [ ! -f $extract/system.transfer.list ]
 	  then
@@ -150,13 +150,13 @@ E_DAT() {
 	  echo    " placing system.transfer.list in mentioned folder "
 	  rm -rf $extract
 	  WAIT " "
-	  EXT_MAIN	  
+	  EXT_MAIN
      fi
-	 
+
 	 #Script tesded on Ubuntu
-	 #Modified on 10/16/2016  
+	 #Modified on 10/16/2016
 	cd $extract
-	 
+
     echo
 	echo  " Found system.new.dat & system.transfer.list"
 	echo
@@ -169,10 +169,10 @@ E_DAT() {
 	      then
           rm -f system.new.dat
 	      rm -f system.transfer.list
-          rm -f sdat2img.py			            
+          rm -f sdat2img.py
 	      echo "  Successfully Converted into System.img"
           sleep 1
-            
+
             if [ `uname | grep Linux` ]  #IF-1
               then
               echo
@@ -198,7 +198,7 @@ E_DAT() {
 		          else
                     echo
                     echo   "    Mount Failed Please try another method!"
-                    echo 
+                    echo
 					cd ..
 					WAIT "    "
 					EXT_MAIN
@@ -211,26 +211,26 @@ E_DAT() {
 		        sleep 2
                 ./ImgExtractor.exe system.img -i
 				if [ -e system_ ]
-				  then 
+				  then
 				  rm -f ImgExtractor.exe
-				  echo  
+				  echo
 				  echo  "   Extracted system.img to system_ folder"
 				  echo
                   read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
 				  echo
 				  echo
 				  cd ..
-				  EXT_MAIN				   
+				  EXT_MAIN
                 fi
             fi #FI-1
-	   fi  #FI-2   
-	
+	   fi  #FI-2
+
 }
 
-#Unmount output - mounted while extracting DAT	
+#Unmount output - mounted while extracting DAT
 UN_MNT() {
     clear
-	echo 
+	echo
 	echo  "  This section is for Unmounting output folder  "
 	echo
 	echo  "  which is mounted during extraction of DAT"
@@ -248,13 +248,13 @@ UN_MNT() {
 	 sudo umount output/
      echo
      echo  "    DONE    "
-     echo 
+     echo
      read enter
      cd ..
      EXT_MAIN
    fi
  }
-	
+
 #Repack DAT to system
 R_DAT() {
 
@@ -262,7 +262,7 @@ echo "UNDER CONST."
 clear
 unset DATE_STR
    DATE_STR=`date '+%m-%d-%a_%H-%M-%S'`
-   #For not conflicting with previous extracted files 
+   #For not conflicting with previous extracted files
    #Based on dxdia's kitchen
    ROM=ROM_$DATE_STR
    mkdir $ROM
@@ -276,18 +276,18 @@ unset DATE_STR
    cd $ROM
    if [ -e system/app ]
     then
-	echo  
+	echo
 	read -p "  Enter size in MB :" M_BYTE
 	#1MB == 1048576
 	SIZE="$(($M_BYTE*1048576))"
 	echo $SIZE bytes
 	./make_ext4fs -T 0 -S file_contexts -l $SIZE -a system system_new.img output/
-   
-   
+
+
    fi
-   
-   
-   
+
+
+
 FILENAME=`find *.* 2>/dev/null`
 SIZE=$(du -sb $FILENAME | awk '{print $1}')
 
@@ -302,7 +302,7 @@ echo "UNDER CONST."
 #ROM - ZIP SIGN
 SIGN_ZIP() {
   if [ "$L_JAVA" == "0" ]
-    then 
+    then
 	 clear
 	 echo
 	 echo
@@ -315,18 +315,18 @@ SIGN_ZIP() {
 	 read -p ""
      EXT_MAIN
    fi
-  
+
   #Script Starts here
-   clear  
+   clear
    echo
    unset DATE_STR
    DATE_STR=`date '+%m-%d-%a_%H-%M-%S'`
    sign_files=sign_$DATE_STR
-   #This sign_-->"date"<-- is for not conflicting with previously 
+   #This sign_-->"date"<-- is for not conflicting with previously
    #created folder
    mkdir $sign_files
    echo
-   echo "   This section is only for ZIP sign of ROM or any other" 
+   echo "   This section is only for ZIP sign of ROM or any other"
    echo
    echo "   ZIP which contain META-INF folder NOT for apk signing"
    echo
@@ -339,14 +339,14 @@ SIGN_ZIP() {
    echo
    cecho C "   Copy your ZIP file into the" " $sign_files " "folder"
    WAIT
-   
+
    cd $sign_files
    ZIP_N=`find *.zip 2>/dev/null`
    if [ $? == 0 ]
      then
 	   clear
 	   cp ../tools/UNI/SIGN_TOOLS/testkey.* .
-	   cp ../tools/UNI/SIGN_TOOLS/signapk.jar . 
+	   cp ../tools/UNI/SIGN_TOOLS/signapk.jar .
 	   echo
 	   echo
 	   echo  "    Signing $ZIP_N .... "
@@ -362,13 +362,13 @@ SIGN_ZIP() {
           echo "    SIGNED $ZIP_F "
           echo
 		  cecho G "" "    Found in `pwd`/$sign_files" " folder"
-          cd .. 
+          cd ..
           WAIT
           EXT_MAIN
         else
 		  clear
 		  echo
-	      cecho R "" "        Signing failed          " 
+	      cecho R "" "        Signing failed          "
 	      echo
           echo "   Possible reasons :"
 		  echo
@@ -384,7 +384,7 @@ SIGN_ZIP() {
           rm -rf $sign_files
           WAIT
           EXT_MAIN
-        fi 
+        fi
     elif [ $? == 1 ]
 	 then
 	   clear
@@ -414,17 +414,17 @@ EXT_START() {
   echo
   cecho W "" "                        Marshmallow/Lollipop             "
   cecho W "" "                     System extractor & repack           "
-  cecho G "                           (" "by matrix" ")"               
+  cecho G "                           (" "by matrix" ")"
   cecho C "" "                                                     $DATE_STR"
-  echo 
+  echo
   cecho W "" "    Menu"
   echo
   cecho C "    1 - " "Unpack" " system.new.dat"
   echo
   cecho C "    2 - " "Repack" " system.new.dat"
-  echo 
+  echo
   cecho C "    3 - " "Unpack" " system.img"
-  echo 
+  echo
   cecho C "    4 - " "Sign" " ZIP files"
    echo
   cecho C "    u - " "Unmount" " output"
@@ -432,13 +432,125 @@ EXT_START() {
   cecho C "    x - " "Exit"
   echo
   echo
-}  
+}
+
+E_SYS() {
+
+   unset DATE_STR
+   DATE_STR=`date '+%m-%d-%a_%H-%M-%S'`
+   #For not conflicting with previous extracted files
+   #Based on dxdia's kitchen
+   extract=extract_$DATE_STR
+   mkdir $extract
+   clear
+   echo
+   echo   "::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+   echo   "::                                                  ::"
+   echo -e  "::  Copy " "\033[0;92msystem.img\033[0m""                                ::"
+   echo   "::                                                  ::"
+   echo -e  "::" " to ""\033[0;97m$extract\033[0m"" folder.           ::"
+   echo   "::                                                  ::"
+   echo   "::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+   echo
+   WAIT ""
+
+   clear
+    if [ ! -f $extract/system.img ]
+	  then
+	  echo
+      cecho R " File" " system.img " "does not exist!  "
+      echo
+	  cecho P   " in " "$extract " "folder , try again by  "
+	  echo
+	  echo    " placing system.img in mentioned folder "
+	  rm -rf $extract
+	  WAIT " "
+	  EXT_MAIN
+     fi
+     cd $extract
+
+       echo
+     echo  " Found system.img"
+     echo
+     sleep 0.5
+     echo  " converting system.img to system.raw.img    "
+     if [ `uname | grep Linux` ]  #IF-1
+       then
+       cp ../tools/UNI/simg2img .
+     ./simg2img system.img system.raw.img
+     elif [ `uname | grep CYGWIN` ]
+         then
+         cp ../tools/Cygwin/simg2img.exe .
+         ./simg2img.exe system.img system.raw.img
+     fi
+     echo
+         if [ -f system.raw.img ]    #IF-2
+           then
+             rm -f system.img
+             rm -f simg2img simg2img.exe
+           echo "  Successfully Converted into System.raw.img"
+             sleep 1
+
+               if [ `uname | grep Linux` ]  #IF-1
+                 then
+                 echo
+                 cecho W "" "  Mounting system.raw.img to output folder"
+               echo
+               read -p "  Hit Enter to continue to mount"
+               echo
+                    if [ ! -e output ]
+                      then
+                      mkdir output
+                    fi
+                    #IN Ubuntu mount worked but in other OS
+                    #IDK it will or will not work
+                  sudo mount -t ext4 -o loop system.raw.img output/
+                  if [ $? == 0 ]
+                       then
+                       echo
+                     echo  "   DONE! Mounted system.raw.img in output folder"
+                     echo
+             cd ..
+                     read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+             EXT_MAIN
+                 else
+                       echo
+                       echo   "    Mount Failed Please try another method!"
+                       echo
+             cd ..
+             WAIT "    "
+             EXT_MAIN
+                    fi
+             elif [ `uname | grep CYGWIN` ]
+                   then
+                   cp ../tools/Cygwin/ImgExtractor.exe .
+               echo
+               cecho W "" "  Converting system.raw.img to system_ folder"
+               sleep 2
+                   ./ImgExtractor.exe system.raw.img -i
+           if [ -e system_ ]
+             then
+             rm -f ImgExtractor.exe
+             echo
+             echo  "   Extracted system.raw.img to system_ folder"
+             echo
+                     read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+             echo
+             echo
+             cd ..
+             EXT_MAIN
+                   fi
+               fi #FI-1
+        fi  #FI-2
+
+     }
+
 
 #MENU
 EXT_MAIN() {
 while :
 do
- 
+
   clear
   unset DATE_STR
   DATE_STR=`date '+%m-%d-%y'`
@@ -447,7 +559,7 @@ do
   case "$CHOICE" in
 		1) E_DAT ;;      #DONE
 		2)  clear ; echo NOT YET DONE ; exit ;;
-		3) clear ; echo NOT YET DONE ; exit ;;
+		3) E_SYS ;;
 		4) SIGN_ZIP ;;   #DONE
 		u|U) UN_MNT ;;   #DONE
 		X|x) clear; echo; echo "Thanks for using."; echo; exit 1;;
@@ -460,5 +572,3 @@ done
 #DEPLOYING function
 EXT_CHECK
 EXT_MAIN
-
-
