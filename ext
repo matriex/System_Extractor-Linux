@@ -540,8 +540,8 @@ E_SYS() {
              cd ..
              EXT_MAIN
                    fi
-               fi #FI-1
-        fi  #FI-2
+               fi 
+        fi  
 
      }
 
