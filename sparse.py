@@ -18,19 +18,11 @@ def main():
     header = struct.unpack("<I4H4I", header_bin)
 
     magic = header[0]
-    major_version = header[1]
-    minor_version = header[2]
-    file_hdr_sz = header[3]
-    chunk_hdr_sz = header[4]
-    blk_sz = header[5]
-    total_blks = header[6]
-    total_chunks = header[7]
-    image_checksum = header[8]
-
+    if magic == 0xED26FF3A:
+      print("Sparse Image file)
+      continue 
     if magic != 0xED26FF3A:
-      print("%s: %s: Magic should be 0xED26FF3A but is 0x%08X"
-            % (me, path, magic))
-      continue
+      print("ext4 Image file)     
 
   sys.exit(0)
 
