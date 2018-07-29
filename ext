@@ -237,6 +237,191 @@ E_DAT() {
 
 }
 
+#Extract OREO: DAT.BR +VENDOR
+E_OREO() {
+
+   unset DATE_STR
+   DATE_STR=`date '+%m-%d-%a_%H-%M-%S'`
+   #For not conflicting with previous extracted files
+   #Based on dxdia's kitchen
+   extract=extract_$DATE_STR
+   mkdir $extract
+   clear
+   echo
+   echo   "::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+   echo   "::                                                  ::"
+   echo -e  "::  Copy " "\033[0;92msystem.new.dat.br\033[0m"" , ""\033[0;92msystem.transfer.list\033[0m""  ::"
+   echo -e  "::  (and " "\033[0;92mvendor.new.dat.br\033[0m"" , ""\033[0;92mvendor.transfer.list\033[0m"") ::"
+   echo   "::                                                  ::"
+   echo -e  "::" " to ""\033[0;97m$extract\033[0m"" folder.           ::"
+   echo   "::                                                  ::"
+   echo   "::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+   echo
+   WAIT ""
+
+   clear
+    if [ ! -f $extract/system.new.dat.br ]
+	  then
+	  echo
+      cecho R " File" " system.new.dat.br " "does not exist!  "
+      echo
+	  cecho P   " in " "$extract " "folder , try again by  "
+	  echo
+	  echo    " placing system.new.dat.br in mentioned folder "
+	  rm -rf $extract
+	  WAIT " "
+	  EXT_MAIN
+     fi
+	 if [ ! -f $extract/system.transfer.list ]
+	  then
+	  echo
+      cecho R " File" " system.transfer.list " "does not exist!"
+      echo
+      cecho P   " in " "$extract " "folder , try again by  "
+	  echo
+	  echo    " placing system.transfer.list in mentioned folder "
+	  rm -rf $extract
+	  WAIT " "
+	  EXT_MAIN
+     fi
+
+     if [ -f $extract/vendor.new.dat.br ] && [ ! -f $extract/vendor.transfer.list ]
+      then
+	  echo
+      cecho R " File" " vendor.transfer.list " "is missing!"
+      echo
+	  cecho P " Remember to also put it into " "$extract" "folder"
+	  rm -rf $extract
+	  WAIT " "
+	  EXT_MAIN
+     fi
+
+	 #Script tested on Ubuntu
+	 #Modified on 10/16/2016
+	cd $extract
+
+	if [ -f vendor.new.dat.br ]
+		then
+		echo  "Vendor image detected. Decompressing with Brotli..."
+		brotli -jd -o system.new.dat system.new.dat.br & \
+		brotli -jd -o vendor.new.dat vendor.new.dat.br
+		else
+		echo  "Decompressing System with Brotli..."
+		brotli -jd -o system.new.dat system.new.dat.br
+	fi
+
+    if [ -f vendor.new.dat.br ] && [ ! -s vendor.new.dat ]
+		then sleep 15 #still unpacking?
+    fi
+    echo
+    if [ -f vendor.new.dat ]
+		then echo  " Found vendor.new.dat & vendor.transfer.list"
+    fi
+	echo  " Found system.new.dat & system.transfer.list"
+	echo
+	sleep 0.5
+	if [ -f vendor.new.dat ]
+		then
+		echo  " converting vendor.new.dat to vendor.img    "
+		python2 ../tools/UNI/sdat2img.py vendor.transfer.list vendor.new.dat vendor.img
+		if e2fsck -nv vendor.img
+			then
+			rm vendor.new.dat
+			echo "  Successfully Converted into Vendor.img"
+			sleep 1
+
+			if [ $(uname | grep Linux) ]
+				then
+				echo
+				cecho W "" "  Mounting vendor.img to vendor_ folder"
+				echo
+				read -p "  Hit Enter to continue to mount"
+				echo
+				if [ ! -e vendor_ ]
+					then mkdir vendor_
+				fi
+				#TODO: This requires user input(
+				sudo mount -t ext4 -o loop vendor.img vendor_/
+				if [ $? == 0 ]
+				then
+					echo
+					echo "  Half done! Mounted vendor.img to vendor_!"
+					echo
+				else
+					echo
+					echo "  Vendor mount failed! Try it yourself. "
+					echo "  ex: udisksctl loop-setup -f vendor.img"
+					echo
+				fi
+			fi
+
+		fi
+	fi
+	echo  " converting system.new.dat to system.img    "
+    cp ../tools/UNI/sdat2img.py .
+	python sdat2img.py system.transfer.list system.new.dat system.img
+	echo
+	    if [ -f system.img ]    #IF-2
+	      then
+          rm -f system.new.dat
+          rm -f sdat2img.py
+	      echo "  Successfully Converted into System.img"
+          sleep 1
+
+            if [ `uname | grep Linux` ]  #IF-1
+              then
+              echo
+              cecho W "" "  Mounting system.img to system_ folder"
+	          echo
+	          read -p "  Hit Enter to continue to mount"
+	          echo
+                 if [ ! -e system_ ]
+                   then
+                   mkdir system_
+                 fi
+                 #IN Ubuntu mount worked but in other OS
+                 #IDK it will or will not work
+	             sudo mount -t ext4 -o loop system.img system_/
+	             if [ $? == 0 ]
+                    then
+                    echo
+	                echo  "   DONE! Mounted system.img in system_ folder"
+	                echo
+					cd ..
+	                read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+					EXT_MAIN
+		          else
+                    echo
+                    echo   "    Mount Failed Please try another method!"
+                    echo
+					cd ..
+					WAIT "    "
+					EXT_MAIN
+                 fi
+	        elif [ `uname | grep CYGWIN` ]
+                then
+                cp ../tools/Cygwin/ImgExtractor.exe .
+		        echo
+		        cecho W "" "  Converting system.img to system_ folder"
+		        sleep 2
+                ./ImgExtractor.exe system.img -i
+				if [ -e system_ ]
+				  then
+				  rm -f ImgExtractor.exe
+				  echo
+				  echo  "   Extracted system.img to system_ folder"
+				  echo
+                  read -p "   ALL DONE HIT ENTER TO CONTINUE TO MENU"
+				  echo
+				  echo
+				  cd ..
+				  EXT_MAIN
+                fi
+            fi #FI-1
+	   fi  #FI-2
+
+}
+
 #Unmount output - mounted while extracting DAT
 UN_MNT() {
     clear
@@ -429,13 +614,15 @@ EXT_START() {
   echo
   cecho W "" "    Menu"
   echo
-  cecho C "    1 - " "Unpack" " system.new.dat"
+  cecho C "    1 - " "Unpack" " system.new.dat.br (and vendor.new.dat.br)"
   echo
-  cecho C "    2 - " "Repack" " system.new.dat"
+  cecho C "    2 - " "Unpack" " system.new.dat"
   echo
-  cecho C "    3 - " "Unpack" " system.img"
+  cecho C "    3 - " "Repack" " system.new.dat"
   echo
-  cecho C "    4 - " "Sign" " ZIP files"
+  cecho C "    4 - " "Unpack" " system.img"
+  echo
+  cecho C "    5 - " "Sign" " ZIP files"
    echo
   cecho C "    u - " "Unmount" " output"
   echo
@@ -567,10 +754,11 @@ do
   EXT_START
   read -p "Enter option: " CHOICE
   case "$CHOICE" in
-		1) E_DAT ;;      #DONE
-		2)  clear ; echo NOT YET DONE ; exit ;;
-		3) E_SYS ;;
-		4) SIGN_ZIP ;;   #DONE
+		1) E_OREO ;;	#CONTRIB
+		2) E_DAT ;;      #DONE
+		3)  clear ; echo NOT YET DONE ; exit ;;
+		4) E_SYS ;;
+		5) SIGN_ZIP ;;   #DONE
 		u|U) UN_MNT ;;   #DONE
 		X|x) clear; echo; echo "Thanks for using."; echo; exit 1;;
 		*) cecho R "" "     Invalid option"; sleep 0.3; continue;;

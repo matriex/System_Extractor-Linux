@@ -1,0 +1,4 @@
+#OTA Packages:
+*.zip
+system_/
+vendor_/
